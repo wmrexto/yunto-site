@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>yunto</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    body {
+      height:100vh;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      font-family:'Poppins', sans-serif;
+      overflow:hidden;
+      background:black;
+    }
+
+    video.background {
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      z-index:-1;
+      filter: grayscale(70%) brightness(60%);
+    }
+
+    h1 {
+      font-size:80px;
+      color:white;
+      text-shadow:0 0 20px rgba(0,0,0,0.7);
+      margin-bottom:50px;
+      z-index:1;
+    }
+
+    .links {
+      display:flex;
+      gap:50px;
+      margin-bottom:30px;
+      z-index:1;
+    }
+
+    .links a img {
+      width:70px;
+      height:70px;
+      filter: brightness(0.9) drop-shadow(0 0 8px rgba(255,255,255,0.3));
+      transition: transform 0.3s, filter 0.3s;
+    }
+
+    .links a img:hover {
+      transform:scale(1.2);
+      filter: brightness(1.5) drop-shadow(0 0 15px rgba(255,255,255,0.6));
+    }
+
+    audio {
+      width:300px;
+      outline:none;
+      filter: invert(1) grayscale(1);
+      z-index:1;
+      margin-bottom:10px;
+    }
+
+    #visitorBtn {
+      padding:8px 15px;
+      border:none;
+      border-radius:8px;
+      background:#1db954;
+      color:white;
+      font-weight:bold;
+      cursor:pointer;
+      margin-bottom:20px;
+    }
+
+    .last-active {
+      color:white;
+      opacity:0.7;
+      font-size:14px;
+      z-index:1;
+      margin-bottom:20px;
+    }
+  </style>
+
+  <!-- FontAwesome -->
+  <script src="https://kit.fontawesome.com/a2b0f9e1b3.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <video autoplay muted loop class="background">
+    <source src="samurai-forest.mp4" type="video/mp4">
+  </video>
+
+  <h1>𝐄𝐦𝐫𝐞</h1>
+
+  <div class="links">
+    <a href="https://instagram.com/emrr_bs/?next=/" target="_blank">
+      <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram">
+    </a>
+    <a href="https://www.youtube.com/@yunto.p" target="_blank">
+      <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube">
+    </a>
+    <a href="https://open.spotify.com/user/853prkc8l6cseh81z348ipgoo?si=6b981066a1f142d5" target="_blank">
+      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111624.png" alt="Spotify">
+    </a>
+    <a href="https://discord.com/users/yunto.p" target="_blank">
+      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" alt="Discord">
+    </a>
+  </div>
+
+  <audio id="music" controls autoplay loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="last-active" id="lastActive"></div>
+
+  <button id="visitorBtn">Ziyaretçi Sayısı</button>
+
+  <script>
+    const music = document.getElementById("music");
+    music.volume = 0.5; // %50 sesle başlar
+
+    // Son giriş mesajı
+    const lastActive = document.getElementById("lastActive");
+    const now = new Date();
+    lastActive.textContent = "Siteye giriş yaptınız: " + now.toLocaleString();
+
+    // Ziyaretçi sayısı - aynı tarayıcı tekrar girerse artmasın
+    let visits = localStorage.getItem('visits') || 0;
+
+    if(!localStorage.getItem('visited')){
+      visits++;
+      localStorage.setItem('visits', visits);
+      localStorage.setItem('visited','true');
+    }
+
+    const visitorBtn = document.getElementById("visitorBtn");
+    visitorBtn.addEventListener("click", () => {
+      alert("Toplam ziyaretçi sayısı: " + visits);
+    });
+  </script>
+
+</body>
+</html>
